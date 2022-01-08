@@ -17,15 +17,7 @@
                 <AdornedElementPlaceholder/>
             </DockPanel>
         </ControlTemplate>
-        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip"
- Value="{Binding RelativeSource={x:Static RelativeSource.Self},
- Path=(Validation.Errors)/ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        
     </Window.Resources>
     <Grid>
         <GroupBox x:Name="gbOperations" HorizontalAlignment="Left" Height="69" VerticalAlignment="Top" Width="100" Margin="10,94,0,0" Header="" ButtonBase.Click="gbOperations_Click">
@@ -37,7 +29,7 @@
         </GroupBox>
         <GroupBox x:Name="gbActions" HorizontalAlignment="Left" Height="67" VerticalAlignment="Top" Width="100" Margin="10,197,0,0" Header="">
             <StackPanel Margin="0,0,-2,0.6" >
-                <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0,0,-0.4,0" />
+                <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0,0,-0.4,0" Click="btnSave_Click" />
                 <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" Margin="0,0,-0.4,0"/>
             </StackPanel>
         </GroupBox>
@@ -49,25 +41,8 @@
                 <Grid Background="#FFE5E5E5" DataContext="{StaticResource proprietatiViewSource}" Margin="0,-9,0.6,-8">
                     <Button x:Name="btnPrev" Content="Previous" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="188.4,167,0,0" Grid.Column="1" Click="btnPrev_Click"/>
                     <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="1" Margin="530.4,167,0,0" Click="btnNext_Click"/>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="53*"/>
-                        <ColumnDefinition Width="710*"/>
-                    </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="proprietatiDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="188.2,26,0.2,232"  Grid.Column="1">
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding adresa}" Header="adresa" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="amplasamentColumn" Binding="{Binding amplasament}" Header="amplasament" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="comisionColumn" Binding="{Binding comision}" Header="comision" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="id_contactColumn" Binding="{Binding id_contact}" Header="id contact" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="nr_camereColumn" Binding="{Binding nr_camere}" Header="nr camere" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="pretColumn" Binding="{Binding pret}" Header="pret" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="suprafataColumn" Binding="{Binding suprafata}" Header="suprafata" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="tip_ofertaColumn" Binding="{Binding tip_oferta}" Header="tip oferta" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="zonaColumn" Binding="{Binding zona}" Header="zona" Width="SizeToHeader"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    
+                   
                     <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -86,7 +61,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Content="adresa:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="adresaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding adresa, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}" />
+                        <TextBox x:Name="adresaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding adresa, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" />
                         <Label Content="amplasament:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
                         <TextBox x:Name="amplasamentTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding amplasament, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
                         <Label Content="comision:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
@@ -102,12 +77,29 @@
                         <Label Content="suprafata:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
                         <TextBox x:Name="suprafataTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="7" Text="{Binding suprafata, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
                         <Label Content="tip oferta:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center" />
-                        <TextBox x:Name="tip_ofertaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" Text="{Binding tip_oferta, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}" />
+                        <TextBox x:Name="tip_ofertaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="8" Text="{Binding tip_oferta, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"  />
                         <Label Content="zona:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="9" VerticalAlignment="Center"/>
-                        <TextBox x:Name="zonaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="9" Text="{Binding zona, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Validation.ErrorTemplate="{StaticResource validationTemplate}" Style="{StaticResource textBoxInError}" />
+                        <TextBox x:Name="zonaTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="9" Text="{Binding zona, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" />
                     </Grid>
+                    <DataGrid x:Name="proprietatiDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="178.4,26,9.8,232"  Grid.Column="1">
 
-
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding adresa}" Header="adresa" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="amplasamentColumn" Binding="{Binding amplasament}" Header="amplasament" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="comisionColumn" Binding="{Binding comision}" Header="comision" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="id_contactColumn" Binding="{Binding id_contact}" Header="id contact" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="nr_camereColumn" Binding="{Binding nr_camere}" Header="nr camere" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="pretColumn" Binding="{Binding pret}" Header="pret" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="suprafataColumn" Binding="{Binding suprafata}" Header="suprafata" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="tip_ofertaColumn" Binding="{Binding tip_oferta}" Header="tip oferta" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="zonaColumn" Binding="{Binding zona}" Header="zona" Width="SizeToHeader"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="53*"/>
+                        <ColumnDefinition Width="710*"/>
+                    </Grid.ColumnDefinitions>
                 </Grid>
             </TabItem>
             <TabItem Header="Baza Contacte" Margin="21.6,2,-28.4,-4.2">
@@ -155,7 +147,11 @@
             </TabItem>
             <TabItem Header="Activitati" Margin="28.4,2,-30.8,-4.2">
                 <Grid Background="#FFE5E5E5" DataContext="{StaticResource activitatiViewSource}">
-                    <DataGrid x:Name="activitatiDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="252,19,9.6,153" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="41*"/>
+                        <ColumnDefinition Width="290*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="activitatiDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="170,19,9.6,153" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn x:Name="dataColumn" Header="data" Width="SizeToHeader">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -170,7 +166,7 @@
                             <DataGridTextColumn x:Name="id_proprietateColumn" Binding="{Binding id_proprietate}" Header="id proprietate" Width="SizeToHeader"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid x:Name="grid4" HorizontalAlignment="Left" Margin="12,37,0,0" VerticalAlignment="Top">
+                    <Grid x:Name="grid4" HorizontalAlignment="Left" Margin="12,37,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
@@ -193,8 +189,8 @@
                         <Label Content="id proprietate:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
                         <TextBox x:Name="id_proprietateTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="4" Text="{Binding id_proprietate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
                     </Grid>
-                    <Button x:Name="btnPrevActivitati" Content="Previous" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="252,234,0,0" Click="btnPrevActivitati_Click"/>
-                    <Button x:Name="btnNextActivitati" Content="Next" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="577,234,0,0" Click="btnNextActivitati_Click"/>
+                    <Button x:Name="btnPrevActivitati" Content="Previous" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="170,234,0,0" Click="btnPrevActivitati_Click" Grid.Column="1"/>
+                    <Button x:Name="btnNextActivitati" Content="Next" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="495,234,0,0" Click="btnNextActivitati_Click" Grid.Column="1"/>
 
                 </Grid>
             </TabItem>

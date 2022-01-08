@@ -38,7 +38,7 @@ namespace ProiectMediiBahmataRadu
         CollectionViewSource proprietatiVSource;
         CollectionViewSource contacteVSource;
         CollectionViewSource activitatiVSource;
-        CollectionViewSource cereriVSource;
+        //CollectionViewSource cereriVSource;
         public MainWindow()
         {
             InitializeComponent();
@@ -109,8 +109,10 @@ namespace ProiectMediiBahmataRadu
             {
                 try
                 {
+                    var ProprietateNoua = ctx.Proprietatis.Max(s => s.Id);
                     proprietate = new Proprietati()
                     {
+                        Id = ProprietateNoua + 1,
                         adresa = adresaTextBox.Text.Trim(),
                         amplasament = amplasamentTextBox.Text.Trim(),
                         comision = Convert.ToInt32(comisionTextBox.Text),
@@ -121,7 +123,10 @@ namespace ProiectMediiBahmataRadu
                         tip_oferta = tip_ofertaTextBox.Text.Trim(),
                         zona = zonaTextBox.Text.Trim()
                     };
-
+                    ctx.Proprietatis.Add(proprietate);
+                    proprietatiVSource.View.Refresh();
+                    //salvam modificarile
+                    ctx.SaveChanges();
                 }
                 catch (DataException ex)
                 {
@@ -166,18 +171,26 @@ namespace ProiectMediiBahmataRadu
         }
         private void SaveContacte()
         {
+            
             Contacte contact = null;
             if (action == ActionState.New)
             {
                 try
                 {
+                    var ContactNou = ctx.Contactes.Max(s => s.Id);
                     contact = new Contacte()
                     {
+                        Id = ContactNou + 1,
                         mail = mailTextBox.Text.Trim(),
                         nr_tel = nr_telTextBox.Text.Trim(),
-                        nume = numeTextBox.Text.Trim()                        
+                        nume = numeTextBox.Text.Trim()
+                        
                     };
 
+                    ctx.Contactes.Add(contact);
+                    contacteVSource.View.Refresh();
+                    //salvam modificarile
+                    ctx.SaveChanges();
                 }
                 catch (DataException ex)
                 {
@@ -222,10 +235,11 @@ namespace ProiectMediiBahmataRadu
             {
                 try
                 {
+                    var ActivitateNoua = ctx.Activitatis.Max(s => s.Id);
                     //instantiem Customer entity
                     activitate = new Activitati()
                     {
-                      
+                        Id = ActivitateNoua + 1,      
                         data= dataDatePicker.SelectedDate.Value,
                         descriere = descriereTextBox.Text.Trim(),
                         id_contact = Convert.ToInt32(id_contactTextBox1.Text),
@@ -303,7 +317,7 @@ namespace ProiectMediiBahmataRadu
             {
                 B.IsEnabled = true;
             }
-            gbActions.IsEnabled = false;
+           // gbActions.IsEnabled = false;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -317,14 +331,12 @@ namespace ProiectMediiBahmataRadu
 
             switch (ti.Header)
             {
-                case "Manager Proprietati":
-                    SaveProprietati();
+                case "Manager Proprietati":SaveProprietati();
                     break;
-                case "Activitati":
-                    SaveActivitati();
+                case "Activitati":SaveActivitati();
                     break;
-                //case "Orders":
-                  //  break;
+                case "Baza Contacte":SaveContacte();
+                    break;
             }
             ReInitialize();
         }
@@ -348,5 +360,6 @@ namespace ProiectMediiBahmataRadu
         {
             activitatiVSource.View.MoveCurrentToNext();
         }
+
     }
 }
